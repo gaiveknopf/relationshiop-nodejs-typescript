@@ -1,4 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import UsersToTechs from './UsersToTechs';
 
 @Entity('techs')
@@ -11,6 +17,11 @@ class Tech {
 
   @OneToMany(() => UsersToTechs, usersToTechs => usersToTechs.tech, {
     cascade: true,
+  })
+  @JoinTable({
+    name: 'users_techs',
+    joinColumns: [{ name: 'tech_id' }],
+    inverseJoinColumns: [{ name: 'user_id' }],
   })
   usersToTechs: UsersToTechs[];
 }

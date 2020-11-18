@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import Tech from './Tech';
 import User from './User';
 
@@ -11,15 +17,17 @@ class UsersToTechs {
   active: boolean;
 
   @Column()
-  userId: number;
+  user_id: number;
 
   @Column()
-  techId: number;
+  tech_id: number;
 
   @ManyToOne(() => User, user => user.usersToTechs, { primary: true })
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @ManyToOne(() => Tech, tech => tech.usersToTechs, { primary: true })
+  @JoinColumn({ name: 'tech_id' })
   tech: Tech;
 }
 
