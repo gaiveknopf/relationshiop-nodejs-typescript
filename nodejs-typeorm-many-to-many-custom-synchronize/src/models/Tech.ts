@@ -9,7 +9,9 @@ class Tech {
   @Column()
   name: string;
 
-  @OneToMany(() => UsersToTechs, usersToTechs => usersToTechs.tech)
+  @OneToMany(() => UsersToTechs, usersToTechs => usersToTechs.tech, {
+    cascade: true,
+  })
   usersToTechs: UsersToTechs[];
 }
 

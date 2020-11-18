@@ -7,17 +7,20 @@ const techRoutes = Router();
 techRoutes.get('/', async (request, response) => {
   const repo = getRepository(Tech);
 
-  const model = await repo.find();
+  const model = await repo.find({
+    relations: ['usersToTechs', 'usersToTechs.user'],
+  });
   return response.json(model);
 });
 
 techRoutes.post('/', async (request, response) => {
-  const { name } = request.body;
+  const { name, users } = request.body;
 
   const repo = getRepository(Tech);
 
   const model = repo.create({
     name,
+    usersToTechs: users,
   });
 
   await repo.save(model);

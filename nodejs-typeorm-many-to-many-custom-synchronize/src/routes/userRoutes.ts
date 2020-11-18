@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { getRepository } from 'typeorm';
+import Tech from '../models/Tech';
 import User from '../models/User';
 
 const techRoutes = Router();
@@ -7,7 +8,10 @@ const techRoutes = Router();
 techRoutes.get('/', async (request, response) => {
   const repo = getRepository(User);
 
-  const model = await repo.find();
+  const model = await repo.find({
+    relations: ['usersToTechs', 'usersToTechs.tech'],
+    select: ['name'],
+  });
   return response.json(model);
 });
 

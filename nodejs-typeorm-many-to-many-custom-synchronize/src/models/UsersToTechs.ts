@@ -16,10 +16,10 @@ class UsersToTechs {
   @Column()
   techId: number;
 
-  @ManyToOne(() => User, user => user.usersToTechs)
+  @ManyToOne(() => User, user => user.usersToTechs, { primary: true })
   user: User;
 
-  @ManyToOne(() => Tech, tech => tech.usersToTechs)
+  @ManyToOne(() => Tech, tech => tech.usersToTechs, { primary: true })
   tech: Tech;
 }
 
